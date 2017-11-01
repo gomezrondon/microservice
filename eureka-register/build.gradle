@@ -51,3 +51,9 @@ task copyDockerFile(){
 		into '/build/libs/'
 	}
 }
+
+bootRun {
+	systemProperties = [
+			'spring.profiles.active': profile_val
+	]
+}
