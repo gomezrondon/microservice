@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="config-server_main" target="1.8" />
+      <module name="config-server_test" target="1.8" />
+      <module name="db-service_main" target="1.8" />
+      <module name="db-service_test" target="1.8" />
+      <module name="eureka-register_main" target="1.8" />
+      <module name="eureka-register_test" target="1.8" />
+      <module name="eureka-service_main" target="1.8" />
+      <module name="eureka-service_test" target="1.8" />
+      <module name="micro-proxy_main" target="1.8" />
+      <module name="micro-proxy_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
