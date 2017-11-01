@@ -47,3 +47,9 @@ dependencyManagement {
 	}
 }
 
+task copyDockerFile(){
+	copy{
+		from '/src/main/docker/Dockerfile'
+		into '/build/libs/'
+	}
+}

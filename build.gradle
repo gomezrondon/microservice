@@ -3,7 +3,12 @@ version '1.0-SNAPSHOT'
 
 
 task buildAll(type:Exec) {
-    commandLine 'cmd', '/c', 'gradlew :config-server:build :db-service:build :eureka-register:build :eureka-service:build :micro-proxy:build'
+    commandLine 'cmd', '/c', 'gradlew :config-server:build :db-service:build :eureka-register:build :eureka-service:build :micro-proxy:build -x test'
+}
+
+task copyAllDockerFiles(type:Exec) {
+    dependsOn buildAll
+    commandLine 'cmd', '/c', 'gradlew :config-server:copyDockerFile :db-service:copyDockerFile :eureka-register:copyDockerFile :eureka-service:copyDockerFile :micro-proxy:copyDockerFile'
 }
 
 task cleanAll(type:Exec) {
