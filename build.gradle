@@ -24,7 +24,7 @@ task config(type:Exec) {
 }
 
 task eureka(type:Exec) {
-    commandLine 'cmd', '/c', 'gradlew :eureka-register:bootRun'
+    commandLine 'cmd', '/c', 'gradlew -Dprofile=sandbox :eureka-register:bootRun'
 }
 
 task dbService(type:Exec) {
