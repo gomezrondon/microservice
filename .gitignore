@@ -5,3 +5,4 @@ micro-proxy/out/
 eureka-service/out/
 .idea/
 db-service/out/
+.gradle/

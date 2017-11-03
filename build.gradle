@@ -15,7 +15,32 @@ task cleanAll(type:Exec) {
     commandLine 'cmd', '/c', 'gradlew :config-server:clean :db-service:clean :eureka-register:clean :eureka-service:clean :micro-proxy:clean'
 }
 
+task runAll(type:Exec) {
+    commandLine 'cmd', '/c', 'gradlew :config-server:bootRun -Dprofile=sandbox :db-service:bootRun'
+}
+
+task config(type:Exec) {
+    commandLine 'cmd', '/c', 'gradlew :config-server:bootRun'
+}
+
+task eureka(type:Exec) {
+    commandLine 'cmd', '/c', 'gradlew :eureka-register:bootRun'
+}
+
+task dbService(type:Exec) {
+    commandLine 'cmd', '/c', 'gradlew -Dprofile=sandbox :db-service:bootRun'
+}
+
+task stockService(type:Exec) {
+    commandLine 'cmd', '/c', 'gradlew -Dprofile=sandbox :eureka-service:bootRun'
+}
+
+task proxyService(type:Exec) {
+    commandLine 'cmd', '/c', 'gradlew -Dprofile=sandbox :micro-proxy:bootRun'
+}
+
+
 // example of how to run in localhost by setting profile=sandbox
-//gradlew -Pprofile_val=sandbox :db-service:bootRun
+//gradlew -Dprofile=sandbox :db-service:bootRun
 
 
