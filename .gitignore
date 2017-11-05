@@ -4,5 +4,6 @@ test db queries.sql
 micro-proxy/out/
 eureka-service/out/
 .idea/
+.idea/modules/
 db-service/out/
 .gradle/
