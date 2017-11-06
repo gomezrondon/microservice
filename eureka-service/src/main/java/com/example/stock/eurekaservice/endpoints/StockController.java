@@ -2,25 +2,18 @@ package com.example.stock.eurekaservice.endpoints;
 
 
 
-import com.netflix.appinfo.InstanceInfo;
+import com.example.stock.eurekaservice.service.StockService;
 import com.netflix.discovery.EurekaClient;
-import feign.Feign;
-import feign.gson.GsonDecoder;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,30 +21,34 @@ import java.util.stream.Collectors;
 @RequestMapping("/rest/stock")
 public class StockController {
 
-    private EurekaClient client;
 
-    public StockController( @Qualifier("eurekaClient") EurekaClient client) {
-         this.client = client;
+    private StockService stockService;
+
+    public StockController(StockService stockService) {
+        this.stockService = stockService;
     }
 
     @GetMapping("/{username}")
     public List<Stock> getStock(@PathVariable("username") final String username){
 
-        InstanceInfo instanceInfo = client.getNextServerFromEureka("db-service", false);
-        String baseUrl = instanceInfo.getHomePageUrl().concat("rest/db/" + username);
+        List<String> lista = stockService.getPreferredUserStocks(username);
 
-        StockClient stocks = Feign.builder()
-                .decoder(new GsonDecoder())
-                .target(StockClient.class, baseUrl);
 
-        List<String> lista = stocks.getAllQuotes();
 
         return  lista.stream()
                 .map(this::getYahooStock)
+                .filter(stock -> stock != null)
                 .collect(Collectors.toList());
     }
 
 
+    private Stock yahoofallback(String quote){
+        System.out.println(">>>>>>>>>>>>>>>> yahoo fallback: "+ quote);
+        return null;
+
+    }
+
+    @HystrixCommand(fallbackMethod = "yahoofallback")
     private Stock getYahooStock(String quote) {
         Stock stock = null;
         try {
