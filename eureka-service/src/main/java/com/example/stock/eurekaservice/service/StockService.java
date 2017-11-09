@@ -1,11 +1,13 @@
 package com.example.stock.eurekaservice.service;
 
-import com.example.stock.eurekaservice.endpoints.StockClient;
+
+import com.example.stock.eurekaservice.entitie.Stock;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import feign.Feign;
-import feign.gson.GsonDecoder;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -15,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,5 +55,32 @@ public class StockService {
         return quotes;
     }
 
+
+    public Stock getGoogleStocks(String quote) {
+
+        String baseUrl = "https://finance.google.com/finance?q=NASDAQ:"+quote+"&output=json";
+        ResponseEntity<String> quotesResponse = restTemplate.exchange(baseUrl, HttpMethod.GET, null,String.class);
+        String data = quotesResponse.getBody();
+
+        try {
+            JSONObject json = new JSONObject(data);
+            String symbol = json.getString("symbol");
+            String name = json.getString("name");
+            String exchange = json.getString("exchange");
+            int id = json.getInt("id");
+
+            JSONArray json2 =   json.getJSONArray("related");
+            String strPrice =json2.getJSONObject(0).getString("l");
+            Double price = Double.valueOf(strPrice.replace(",",""));
+            Stock stock = new Stock(symbol, id, exchange, name, price);
+            return stock;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
 
 }
