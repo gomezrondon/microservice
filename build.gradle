@@ -44,3 +44,6 @@ task proxyService(type:Exec) {
 //gradlew -Dprofile=sandbox :db-service:bootRun
 
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.2'
+}
