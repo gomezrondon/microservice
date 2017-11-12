@@ -24,7 +24,7 @@ public class ReactiveServiceApplication {
 			quoteRepository.deleteAll().subscribe(null,null,() ->
 					 Stream.of("AAPL,ADBE,ADI,ADP,ADSK,AMGN,AMZN".split(","))
 					.map(q -> new Quote(UUID.randomUUID().toString(),"jose",q))
-					.peek(q -> System.out.println(q.toString()))
+					//.peek(q -> System.out.println(q.toString()))
 					.forEach(quote -> quoteRepository.save(quote).subscribe(System.out::println)));
 
 		};
