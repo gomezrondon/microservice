@@ -6,6 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.reactive.function.server.RequestPredicates;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
 
 
 import java.util.UUID;
@@ -18,6 +21,12 @@ public class ReactiveServiceApplication {
 		SpringApplication.run(ReactiveServiceApplication.class, args);
 	}
 
+/*
+	@Bean
+	RouterFunction<?> routes(){
+		return RouterFunctions.route(RequestPredicates.GET())
+	}
+*/
  	@Bean
 	CommandLineRunner QuoteCLR(QuoteRepository quoteRepository){
 		return args -> {

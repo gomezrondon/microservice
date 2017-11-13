@@ -4,7 +4,11 @@ package com.example.reactiveservice.endpoints;
 import com.example.reactiveservice.entities.Quote;
 import com.example.reactiveservice.entities.Quotes;
 import com.example.reactiveservice.repository.QuoteRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.server.RequestPredicate;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -22,6 +26,9 @@ public class ReactiveDbServiceController {
     public ReactiveDbServiceController(QuoteRepository quoteRepository) {
         this.quoteRepository = quoteRepository;
     }
+
+
+
 
     @GetMapping("/rest/db/{username}")
     public Mono<List<String>> getQuotes(@PathVariable("username") final String username){
