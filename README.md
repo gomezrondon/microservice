@@ -51,3 +51,10 @@ payload:
     "AMZN"
 ]
 
+
+10) To turn off the services execute:
+>docker-compose down
+
+
+
+
