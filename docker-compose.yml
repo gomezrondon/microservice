@@ -1,0 +1,45 @@
+version: '2.1'
+
+services:
+  db:
+    container_name: db
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: roor
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+  db-stock:
+    build: ./db-service/build/libs
+    depends_on:
+       eureka-server:
+         condition: service_healthy
+  stock:
+   build: ./eureka-service/build/libs
+   depends_on:
+      eureka-server:
+        condition: service_healthy
+  micro-proxy:
+   build: ./micro-proxy/build/libs
+   container_name: micro-proxy
+   ports:
+     - 8099:8099
+   depends_on:
+      - eureka-server
+  eureka-server:
+   build: ./eureka-register/build/libs
+   container_name: eureka-server
+   ports:
+     - 8761:8761
+   depends_on:
+      config:
+        condition: service_healthy
+   healthcheck:
+      test: "exit 0"
+  config:
+   build: ./config-server/build/libs
+   container_name: config
+   healthcheck:
+      test: "exit 0"
