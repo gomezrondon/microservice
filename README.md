@@ -46,10 +46,34 @@ http://192.168.99.100:8099/api/stock-service/rest/stock/Javier
 the resoult should be:
 payload:
 [
-    "GOOG",
-    "AAPL",
-    "ORCL",
-    "AMZN"
+    {
+        "symbol": "GOOG",
+        "id": 2147483647,
+        "exchange": "NASDAQ",
+        "name": "Alphabet Inc",
+        "price": 1032.5
+    },
+    {
+        "symbol": "AAPL",
+        "id": 22144,
+        "exchange": "NASDAQ",
+        "name": "Apple Inc.",
+        "price": 171.1
+    },
+    {
+        "symbol": "ORCL",
+        "id": 419344,
+        "exchange": "NYSE",
+        "name": "Oracle Corporation",
+        "price": 49.2
+    },
+    {
+        "symbol": "AMZN",
+        "id": 660463,
+        "exchange": "NASDAQ",
+        "name": "Amazon.com, Inc.",
+        "price": 1137.29
+    }
 ]
 
 
