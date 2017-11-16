@@ -6,6 +6,7 @@ Microservice made with Spring cloud, Spring config server, Eureka registry, Zuul
   >gradlew copyAllDockerFiles   //to build the jars and move dockers files together.
 3) Turn on the Docker Machine and MySQL service.
 4) Execute the docker-compose.yml
+  >docker-compose build
   >docker-compose up -d
 6) Execute:> docker ps   //there should be 6 containers running.
 
