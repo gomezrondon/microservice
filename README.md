@@ -9,7 +9,7 @@ Microservice made with Spring cloud, Spring config server, Eureka registry, Zuul
   >docker-compose up -d
 6) Execute:> docker ps   //there should be 6 containers running.
 
-Test the microservice
+** Test the microservice **
 
 7) In the browser whe open Eureka Server: http://192.168.99.100:8761/
   * It should be 3 application:
@@ -21,9 +21,33 @@ Test the microservice
 
 8) We add a record using Postman
 post:
-http://192.168.99.100:8099/db-service/rest/db/add
+http://192.168.99.100:8099/api/db-service/rest/db/add
 payload:
 {
   "userName":"javier",
   "quotes":["GOOG", "AAPL", "ORCL", "AMZN"]
 }
+
+the resoult should be:
+payload:
+[
+    "GOOG",
+    "AAPL",
+    "ORCL",
+    "AMZN"
+]
+
+
+9) Get the records
+get:
+http://192.168.99.100:8099/api/stock-service/rest/stock/Javier
+
+the resoult should be:
+payload:
+[
+    "GOOG",
+    "AAPL",
+    "ORCL",
+    "AMZN"
+]
+
