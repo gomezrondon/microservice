@@ -5,6 +5,9 @@ package com.example.stock.eurekaservice.endpoints;
 import com.example.stock.eurekaservice.entitie.Stock;
 import com.example.stock.eurekaservice.service.StockService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@EnableBinding(Sink.class)
 @RestController
 @RequestMapping("/rest/stock")
 public class StockController {
@@ -22,6 +25,12 @@ public class StockController {
 
     public StockController(StockService stockService) {
         this.stockService = stockService;
+    }
+
+    @StreamListener(Sink.INPUT)
+    public void handle(String name){
+        System.out.println("<<<<<<<<<<<<<<<<<<< get Message: "+name);
+
     }
 
     @GetMapping("/{username}")

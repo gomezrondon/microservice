@@ -11,6 +11,11 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - 5672:5672
+      - 15672:15672
   db-stock:
     build: ./db-service/build/libs
     depends_on:

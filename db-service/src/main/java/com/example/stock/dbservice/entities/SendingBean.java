@@ -17,6 +17,7 @@ public class SendingBean {
 
     public void sayHello(String name){
         source.output().send(MessageBuilder.withPayload(name).build());
+        System.out.println(">>>>>>> Message sent:" + name);
     }
 
 }

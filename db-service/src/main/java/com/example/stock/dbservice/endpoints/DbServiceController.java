@@ -30,7 +30,6 @@ public class DbServiceController {
 
     public DbServiceController(QuotesRepository quotesRepository, SendingBean sendingBean) {
         this.quotesRepository = quotesRepository;
-
         this.sendingBean = sendingBean;
     }
 
