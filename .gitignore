@@ -8,3 +8,4 @@ eureka-service/out/
 db-service/out/
 .gradle/
 reactive-service/out/
+build/

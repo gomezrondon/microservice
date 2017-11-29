@@ -11,7 +11,8 @@ public class ConfigEndPoint {
 
     @Bean
     RouterFunction<?> routes(RouteHandlers routeHandlers){
-        return RouterFunctions.route(RequestPredicates.GET("/react/db/{username}"), routeHandlers::byUserName);
+        return RouterFunctions.route(RequestPredicates.GET("/react/db/{username}"), routeHandlers::byUserName)
+                .andRoute(RequestPredicates.POST("/react/db/add"), routeHandlers::add);
     }
 
 }

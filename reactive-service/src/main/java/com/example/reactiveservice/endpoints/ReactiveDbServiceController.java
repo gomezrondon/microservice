@@ -27,9 +27,6 @@ public class ReactiveDbServiceController {
         this.quoteRepository = quoteRepository;
     }
 
-
-
-
     @GetMapping("/rest/db/{username}")
     public Mono<List<String>> getQuotes(@PathVariable("username") final String username){
         return getQuotesByuserName(username);
