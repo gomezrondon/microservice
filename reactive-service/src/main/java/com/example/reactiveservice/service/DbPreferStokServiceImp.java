@@ -31,6 +31,11 @@ public class DbPreferStokServiceImp implements DbPreferStokService{
                 .forEach(quote -> quoteRepository.save(quote).subscribe(System.out::println));
     }
 
+    @Override
+    public Mono<Void> deleteQuotes(String username) {
+        return  quoteRepository.deleteByUserName(username);
+    }
+
 
     private Flux<Quote> getQuotesByuserName(String userName){
         return quoteRepository.findByUserName(userName).distinct();
