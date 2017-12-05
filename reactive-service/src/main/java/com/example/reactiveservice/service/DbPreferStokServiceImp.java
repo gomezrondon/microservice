@@ -33,7 +33,9 @@ public class DbPreferStokServiceImp implements DbPreferStokService{
 
     @Override
     public Mono<Void> deleteQuotes(String username) {
-        return  quoteRepository.deleteByUserName(username);
+         quoteRepository.findByUserName(username)
+                .doOnNext(quote -> quoteRepository.deleteById(quote.getId()).subscribe(System.out::println));
+        return Mono.empty().then();
     }
 
 

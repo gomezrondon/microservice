@@ -10,6 +10,6 @@ import reactor.core.publisher.Mono;
 public interface QuoteRepository extends ReactiveMongoRepository<Quote,String> {
 
     Flux<Quote> findByUserName(String userName);
-    Mono<Void> deleteByUserName(String userName);
+   //ToDO Mono<Void> deleteByUserName(String userName);
 
 }
