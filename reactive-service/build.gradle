@@ -1,7 +1,7 @@
 buildscript {
-    ext.kotlin_version = '1.1.3'
-    ext {
-		springBootVersion = '2.0.0.M6'
+	ext.kotlin_version = '1.2.0'
+	ext {
+		springBootVersion = '2.0.0.M7'
 	}
 	repositories {
 		mavenCentral()
@@ -10,8 +10,8 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+	}
 }
 
 apply plugin: 'java'
@@ -20,9 +20,14 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+group = 'gomezrondon'
+//version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+
+jar{
+	baseName = 'reactive-service'
+}
+
 
 repositories {
 	mavenCentral()
@@ -31,21 +36,47 @@ repositories {
 }
 
 
+ext {
+	springCloudVersion = 'Finchley.M5'
+}
+
 dependencies {
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.cloud:spring-cloud-starter-config')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
 	compile('org.springframework.boot:spring-boot-starter-webflux')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 	compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
 compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+	kotlinOptions {
+		jvmTarget = "1.8"
+	}
 }
 compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+	kotlinOptions {
+		jvmTarget = "1.8"
+	}
+}
+
+task copyDockerFile(){
+	copy{
+		from '/src/main/docker/Dockerfile'
+		into '/build/libs/'
+	}
+}
+
+bootRun {
+	systemProperties = [
+			'spring.profiles.active': System.getProperty("profile")
+	]
 }

@@ -42,11 +42,11 @@ public class StockService {
     }
 
 
-    @HystrixCommand(fallbackMethod = "fallback")
+  //  @HystrixCommand(fallbackMethod = "fallback")
     public List<String> getPreferredUserStocks(@PathVariable("username") String username) {
         InstanceInfo instanceInfo = client.getNextServerFromEureka(serviceName, false);
-        String baseUrl = instanceInfo.getHomePageUrl().concat("rest/db/" + username);
-
+        String baseUrl = instanceInfo.getHomePageUrl().concat("react/db/" + username);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> baseUrl: "+baseUrl);
         ResponseEntity<List<String>> quotesResponse = restTemplate.exchange(baseUrl, HttpMethod.GET, null
                 , new ParameterizedTypeReference<List<String>>() {});
 

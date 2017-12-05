@@ -1,18 +1,19 @@
 version: '2.1'
 
 services:
-  db:
-    container_name: db
-    image: mysql:8
-    environment:
-      MYSQL_DATABASE: test
-      MYSQL_USER: roor
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - 3306:3306
-  db-stock:
-    build: ./db-service/build/libs
+  mongodb:
+      image: mongo:latest
+      container_name: "mongodb"
+      environment:
+        - MONGO_DATA_DIR=/data/db
+        - MONGO_LOG_DIR=/dev/null
+      volumes:
+        - ./data/db:/data/db
+      ports:
+          - 27017:27017
+      command: mongod --smallfiles --logpath=/dev/null # --quiet
+  db-reactive-stock:
+    build: ./reactive-service/build/libs
     depends_on:
        eureka-server:
          condition: service_healthy

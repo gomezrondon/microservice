@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: db-reactive-stock
+  cloud:
+    config:
+      uri: http://config:8980
+
+---
+spring:
+  profiles: sandbox
+  application:
+    name: db-reactive-stock-sandbox
+  cloud:
+    config:
+      uri: http://localhost:8980
