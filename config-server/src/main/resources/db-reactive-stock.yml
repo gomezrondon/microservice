@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: ${random.int[55536,65536]}
 
 spring:
   data:
