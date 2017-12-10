@@ -8,6 +8,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.*;
 
 @Component
@@ -20,18 +21,18 @@ public class RouteHandlers{
     }
 
     public Mono<ServerResponse> byUserName(ServerRequest request) {
-        return ServerResponse.ok()
+        return ServerResponse.ok().contentType(APPLICATION_JSON)
                 .body(service.getQuotes(request.pathVariable("username")), Quote.class);
     }
 
     public Mono<ServerResponse> add(ServerRequest request) {
-        return ServerResponse.ok().body(request.bodyToMono(Quotes.class).doOnNext(service::add), Quotes.class);
+        return ServerResponse.ok().contentType(APPLICATION_JSON).body(request.bodyToMono(Quotes.class).doOnNext(service::add), Quotes.class);
     }
 
     public Mono<ServerResponse> delete(ServerRequest request) {
 
         //return ServerResponse.ok().body(Mono.empty(),Quotes.class); // esto funciona
-        return ServerResponse.ok().body(fromObject(service.deleteQuotes(request.pathVariable("username"))));
+        return ServerResponse.ok().contentType(APPLICATION_JSON).body(fromObject(service.deleteQuotes(request.pathVariable("username"))));
     }
 
 

@@ -1,3 +1,5 @@
+server:
+  port: 8081
 spring:
   application:
     name: db-reactive-stock
@@ -6,6 +8,8 @@ spring:
       uri: http://config:8980
 
 ---
+server:
+  port: 8081
 spring:
   profiles: sandbox
   application:

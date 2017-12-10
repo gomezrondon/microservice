@@ -1,0 +1,7 @@
+server:
+  port: 8980
+spring:
+  profiles:
+    active: native
+  application:
+    name: ms-config-server

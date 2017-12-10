@@ -8,9 +8,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableCircuitBreaker
 @EnableEurekaClient
 @SpringBootApplication
-public class EurekaServiceApplication {
+public class MsStockApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EurekaServiceApplication.class, args);
+		SpringApplication.run(MsStockApplication.class, args);
 	}
 }

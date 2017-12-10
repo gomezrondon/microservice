@@ -1,0 +1,10 @@
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 120000
+
+#zuul:
+#  prefix: /api

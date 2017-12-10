@@ -1,6 +1,7 @@
 package com.example.stock.eurekaservice.service;
 
 
+import com.example.stock.eurekaservice.entitie.Quote;
 import com.example.stock.eurekaservice.entitie.Stock;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StockService {
@@ -47,12 +49,13 @@ public class StockService {
         InstanceInfo instanceInfo = client.getNextServerFromEureka(serviceName, false);
         String baseUrl = instanceInfo.getHomePageUrl().concat("react/db/" + username);
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> baseUrl: "+baseUrl);
-        ResponseEntity<List<String>> quotesResponse = restTemplate.exchange(baseUrl, HttpMethod.GET, null
-                , new ParameterizedTypeReference<List<String>>() {});
+        ResponseEntity<List<Quote>> quotesResponse = restTemplate.exchange(baseUrl, HttpMethod.GET, null
+                , new ParameterizedTypeReference<List<Quote>>() {});
 
-        List<String> quotes = quotesResponse.getBody();
-        System.out.println(">>>>>>> stock list: "+quotes);
-        return quotes;
+        List<Quote> quotesList = quotesResponse.getBody();
+        System.out.println(">>>>>>> stock list: "+quotesList.toString());
+        List<String> collect = quotesList.stream().map(q -> q.getQuote()).collect(Collectors.toList());
+        return collect;
     }
 
 
