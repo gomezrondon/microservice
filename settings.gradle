@@ -1,3 +1,3 @@
 rootProject.name = 'microservice'
-include 'config-server', 'db-service', 'eureka-register', 'eureka-service', 'micro-proxy', 'reactive-service'
+include 'config-server', 'db-service', 'eureka-register', 'eureka-service', 'micro-proxy', 'reactive-service', 'ms-stock'
 

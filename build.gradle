@@ -3,16 +3,16 @@ version '1.0-SNAPSHOT'
 
 
 task buildAll(type:Exec) {
-    commandLine 'cmd', '/c', 'gradlew :config-server:build :db-service:build :reactive-service:build :eureka-register:build :eureka-service:build :micro-proxy:build -x test'
+    commandLine 'cmd', '/c', 'gradlew :config-server:build :db-service:build :reactive-service:build :ms-stock:build :eureka-register:build :eureka-service:build :micro-proxy:build -x test'
 }
 
 task copyAllDockerFiles(type:Exec) {
     dependsOn buildAll
-    commandLine 'cmd', '/c', 'gradlew :config-server:copyDockerFile :db-service:copyDockerFile :reactive-service:copyDockerFile :eureka-register:copyDockerFile :eureka-service:copyDockerFile :micro-proxy:copyDockerFile'
+    commandLine 'cmd', '/c', 'gradlew :config-server:copyDockerFile :db-service:copyDockerFile :reactive-service:copyDockerFile :ms-stock:copyDockerFile :eureka-register:copyDockerFile :eureka-service:copyDockerFile :micro-proxy:copyDockerFile'
 }
 
 task cleanAll(type:Exec) {
-    commandLine 'cmd', '/c', 'gradlew :config-server:clean :db-service:clean :reactive-service:clean :eureka-register:clean :eureka-service:clean :micro-proxy:clean'
+    commandLine 'cmd', '/c', 'gradlew :config-server:clean :db-service:clean :reactive-service:clean :ms-stock:clean :eureka-register:clean :eureka-service:clean :micro-proxy:clean'
 }
 
 task runAll(type:Exec) {
@@ -41,6 +41,10 @@ task proxyService(type:Exec) {
 
 task reactiveService(type:Exec) {
     commandLine 'cmd', '/c', 'gradlew -Dprofile=sandbox :reactive-service:bootRun'
+}
+
+task msStock(type:Exec) {
+    commandLine 'cmd', '/c', 'gradlew -Dprofile=sandbox :ms-stock:bootRun'
 }
 
 // example of how to run in localhost by setting profile=sandbox
