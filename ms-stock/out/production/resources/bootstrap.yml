@@ -1,5 +1,5 @@
 server:
-  port: ${port:8082}
+  port: ${port:5001}
 spring:
   application:
     name: ms-stock
@@ -8,13 +8,10 @@ spring:
       discovery:
         enabled: true
         service-id: ms-config-server
-service:
-  db-service:
-    name: db-reactive-stock
 
 ---
 server:
-  port: ${port:8082}
+  port: ${port:5001}
 spring:
   profiles:
     active: sandbox
@@ -25,6 +22,3 @@ spring:
       discovery:
         enabled: true
         service-id: ms-config-server
-service:
-  db-service:
-    name: db-reactive-stock-sandbox

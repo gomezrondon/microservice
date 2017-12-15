@@ -3,4 +3,6 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
 
-
+service:
+  db-service:
+    name: ms-db-rx-sandbox
