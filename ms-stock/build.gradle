@@ -46,6 +46,7 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
 	compile('org.springframework.boot:spring-boot-starter-webflux')
+	compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.2'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')
 	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"

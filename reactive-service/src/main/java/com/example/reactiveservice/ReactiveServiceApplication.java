@@ -24,7 +24,7 @@ public class ReactiveServiceApplication {
 	CommandLineRunner QuoteCLR(QuoteRepository quoteRepository){
 		return args -> {
 			quoteRepository.deleteAll().subscribe(null,null,() ->
-					Stream.of("AAPL,ADBE,ADI,ADP,ADSK,AMGN,AMZN".split(","))
+					Stream.of("AAPL,ADBE,AMZN,GOOGL,IBM".split(","))
 							.map(q -> new Quote(UUID.randomUUID().toString(),"jose",q))
 							//.peek(q -> System.out.println(q.toString()))
 							.forEach(quote -> quoteRepository.save(quote).subscribe(System.out::println)));
