@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class Config {
 
-    @LoadBalanced  //client side load balancing
     @Bean
     public RestTemplate restTemplate(){
         return new RestTemplate();
