@@ -3,7 +3,7 @@ version: '2.1'
 services:
   db:
     container_name: db
-    image: mysql:8
+    image: mysql:5.7
     environment:
       MYSQL_DATABASE: test
       MYSQL_USER: roor
