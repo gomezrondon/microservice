@@ -27,7 +27,8 @@ services:
    ports:
      - 8099:8099
    depends_on:
-      - eureka-server
+     eureka-server:
+       condition: service_healthy
   eureka-server:
    build: ./eureka-register/build/libs
    container_name: eureka-server
